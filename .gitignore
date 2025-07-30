@@ -27,3 +27,5 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+### Sensitive files ###
+db.properties   # 🔐 This will now be ignored by Git
