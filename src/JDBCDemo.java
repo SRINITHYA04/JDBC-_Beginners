@@ -4,7 +4,8 @@ import java.util.Properties;
 
 
 public class JDBCDemo {
-    public static void main(String[] args) throws Exception {
+
+    public static void readRecord() throws Exception{
 
         // get the hidden database details.
         Properties props = new Properties();
@@ -15,7 +16,7 @@ public class JDBCDemo {
 
         String url = props.getProperty("url");
         String userName = props.getProperty("userName");
-        String passWord = props.getProperty("Pwd");
+        String passWord = props.getProperty("pwd");
 
         String query = "select * from employee";
 
@@ -37,6 +38,92 @@ public class JDBCDemo {
         }
 
         con.close();
+    }
 
+    public static void insertRecord() throws Exception{
+
+        FileInputStream fis = new FileInputStream("db.properties");
+        Properties props = new Properties();
+        props.load(fis);
+
+        String url = props.getProperty("url");
+        String name = props.getProperty("userName");
+        String pwd = props.getProperty("pwd");
+
+        String query = "insert into employee value(5,'Dharshini',120000)";
+
+        Connection con = DriverManager.getConnection(url,name,pwd);
+        Statement st = con.createStatement();
+        int row = st.executeUpdate(query);
+
+        System.out.println("The number of rows affected : "+row);
+
+        con.close();
+
+    }
+
+    public static void insertVar() throws Exception{
+
+        FileInputStream fis = new FileInputStream("db.properties");
+        Properties props = new Properties();
+        props.load(fis);
+
+        String url = props.getProperty("url");
+        String name = props.getProperty("userName");
+        String pwd = props.getProperty("pwd");
+
+        int id = 6;
+        String ename ="Vinaya";
+        int salary = 90000;
+
+//                     "insert into employee value(5,'Dharshini',120000)";
+        String query ="insert into employee value ("+id+",'"+ename+"',"+salary+")";
+
+        Connection con = DriverManager.getConnection(url,name,pwd);
+        Statement st = con.createStatement();
+        int row = st.executeUpdate(query);
+
+        System.out.println("The number of rows affected : "+row);
+
+        con.close();
+
+    }
+
+    public static void insertUsingPst() throws Exception{
+
+        FileInputStream fis = new FileInputStream("db.properties");
+        Properties props = new Properties();
+        props.load(fis);
+
+        String url = props.getProperty("url");
+        String name = props.getProperty("userName");
+        String pwd = props.getProperty("pwd");
+
+        int id = 7;
+        String ename ="Swetha";
+        int salary = 95000;
+
+//                     "insert into employee value(5,'Dharshini',120000)";
+        String query ="insert into employee value (?,?,?);";
+
+        Connection con = DriverManager.getConnection(url,name,pwd);
+        PreparedStatement pst = con.prepareStatement(query);
+        pst.setInt(1, id);
+        pst.setString(2, ename);
+        pst.setInt(3,salary);
+
+        int row = pst.executeUpdate();
+
+        System.out.println("The number of rows affected : "+row);
+
+        con.close();
+    }
+
+
+    public static void main(String[] args) throws Exception {
+//        insertRecord();
+//        readRecord();
+//        insertVar();
+//        insertUsingPst();
     }
 }
