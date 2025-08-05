@@ -168,6 +168,7 @@ public class JDBCDemo {
         con.close();
     }
 
+    // calling a simple stored procedure
     public static void sp() throws Exception {
 
         FileInputStream fis = new FileInputStream("db.properties");
@@ -192,6 +193,89 @@ public class JDBCDemo {
         con.close();
     }
 
+    //calling a stored procedure with input paramenter
+    public static void spIn() throws Exception {
+
+        FileInputStream fis = new FileInputStream("db.properties");
+        Properties props = new Properties();
+        props.load(fis);
+
+        String url = props.getProperty("url");
+        String name = props.getProperty("userName");
+        String pwd = props.getProperty("pwd");
+        int id =1;
+
+        Connection con = DriverManager.getConnection(url,name,pwd);
+
+        CallableStatement cst = con.prepareCall("{call GetEmpById(?)}");
+        cst.setInt(1, id);
+        ResultSet rst = cst.executeQuery();
+
+        while(rst.next()){
+            System.out.println("The id is :" + rst.getInt(1));
+            System.out.println("The Name is :" + rst.getString(2));
+            System.out.println("The Salary is :" + rst.getInt(3));
+        }
+
+        con.close();
+    }
+
+    // calling stored procedure with input and output parameters
+    public static void spOut() throws Exception {
+
+        FileInputStream fis = new FileInputStream("db.properties");
+        Properties props = new Properties();
+        props.load(fis);
+
+        String url = props.getProperty("url");
+        String name = props.getProperty("userName");
+        String pwd = props.getProperty("pwd");
+        int id = 1;
+
+        Connection con = DriverManager.getConnection(url,name,pwd);
+
+        CallableStatement cst = con.prepareCall("{call GetNameById(?,?)}");
+        cst.setInt(1, id);
+        cst.registerOutParameter(2, Types.VARCHAR);
+
+        cst.executeUpdate();
+
+        System.out.println(cst.getString(2));
+
+        con.close();
+    }
+
+    // Commit and AutoCommit
+
+    public static void commitDemo() throws Exception {
+
+        FileInputStream fis = new FileInputStream("db.properties");
+        Properties props = new Properties();
+        props.load(fis);
+
+        String url = props.getProperty("url");
+        String name = props.getProperty("userName");
+        String pwd = props.getProperty("pwd");
+        String query1 = " Update employee set salary = 400000 where emp_id = 1;";
+        String query2 = " Update employee set salary = 400000 where emp_id = 2;";
+
+        Connection con = DriverManager.getConnection(url,name,pwd);
+        con.setAutoCommit(false);
+        Statement st = con.createStatement();
+
+        int row = st.executeUpdate(query1);
+        System.out.println(row+" row affected.");
+
+        row += st.executeUpdate(query2);
+        System.out.println(row+" rows affected.");
+
+        if(row == 2){
+            con.commit();
+        }
+        con.close();
+    }
+
+
 
     public static void main(String[] args) throws Exception {
 //        insertRecord();
@@ -201,5 +285,8 @@ public class JDBCDemo {
 //        Delete();
 //        Update();
 //        sp();
+//        spIn();
+//        spOut();
+        commitDemo();
     }
 }
