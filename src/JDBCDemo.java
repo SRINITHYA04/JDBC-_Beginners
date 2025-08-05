@@ -119,11 +119,87 @@ public class JDBCDemo {
         con.close();
     }
 
+    public static void Delete() throws Exception{
+
+        FileInputStream fis = new FileInputStream("db.properties");
+        Properties props = new Properties();
+        props.load(fis);
+
+        String url = props.getProperty("url");
+        String name = props.getProperty("userName");
+        String pwd = props.getProperty("pwd");
+
+        int id = 7;
+
+
+//                     "insert into employee value(5,'Dharshini',120000)";
+        String query ="delete from employee where emp_id="+id;
+
+        Connection con = DriverManager.getConnection(url,name,pwd);
+        Statement st = con.createStatement();
+        int row = st.executeUpdate(query);
+
+        System.out.println("The number of rows affected : "+row);
+
+        con.close();
+    }
+
+    public static void Update() throws Exception{
+
+        FileInputStream fis = new FileInputStream("db.properties");
+        Properties props = new Properties();
+        props.load(fis);
+
+        String url = props.getProperty("url");
+        String name = props.getProperty("userName");
+        String pwd = props.getProperty("pwd");
+
+
+
+//                     "insert into employee value(5,'Dharshini',120000)";
+        String query ="update employee set salary = 123456 where emp_id = 1;";
+
+        Connection con = DriverManager.getConnection(url,name,pwd);
+        Statement st = con.createStatement();
+        int row = st.executeUpdate(query);
+
+        System.out.println("The number of rows affected : "+row);
+
+        con.close();
+    }
+
+    public static void sp() throws Exception {
+
+        FileInputStream fis = new FileInputStream("db.properties");
+        Properties props = new Properties();
+        props.load(fis);
+
+        String url = props.getProperty("url");
+        String name = props.getProperty("userName");
+        String pwd = props.getProperty("pwd");
+
+        Connection con = DriverManager.getConnection(url,name,pwd);
+
+        CallableStatement cst = con.prepareCall("{call GetEmp()}");
+        ResultSet rst = cst.executeQuery();
+
+        while(rst.next()){
+            System.out.println("The id is :" + rst.getInt(1));
+            System.out.println("The Name is :" + rst.getString(2));
+            System.out.println("The Salary is :" + rst.getInt(3));
+        }
+
+        con.close();
+    }
+
 
     public static void main(String[] args) throws Exception {
 //        insertRecord();
 //        readRecord();
 //        insertVar();
 //        insertUsingPst();
+//        Delete();
+//        Update();
+//        sp();
     }
 }
