@@ -275,6 +275,42 @@ public class JDBCDemo {
         con.close();
     }
 
+    public static void BatchDemo() throws Exception {
+
+        FileInputStream fis = new FileInputStream("db.properties");
+        Properties props = new Properties();
+        props.load(fis);
+
+        String url = props.getProperty("url");
+        String name = props.getProperty("userName");
+        String pwd = props.getProperty("pwd");
+
+        String query1 = " Update employee set salary = 500000 where emp_id = 1;";
+        String query2 = " Update employee set salary = 500000 where emp_id = 2;";
+        String query3 = " Update employee set salary = 500000 where emp_id = 3;";
+        String query4 = " Update employee set salary = 500000 where emp_id = 4;";
+
+        Connection con = DriverManager.getConnection(url,name,pwd);
+        con.setAutoCommit(false);
+
+        Statement st = con.createStatement();
+        st.addBatch(query1);
+        st.addBatch(query2);
+        st.addBatch(query3);
+        st.addBatch(query4);
+        int[] arr = st.executeBatch();
+
+        for(int i : arr) {
+            if(i>0)
+                System.out.println("Rows affected: " +i);
+            else
+                con.rollback();
+        }
+
+        con.commit();
+        con.close();
+    }
+
 
 
     public static void main(String[] args) throws Exception {
@@ -287,6 +323,7 @@ public class JDBCDemo {
 //        sp();
 //        spIn();
 //        spOut();
-        commitDemo();
+//        commitDemo();
+        BatchDemo();
     }
 }
