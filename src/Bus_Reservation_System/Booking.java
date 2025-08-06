@@ -1,5 +1,7 @@
 package Bus_Reservation_System;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -30,21 +32,15 @@ public class Booking {
 
     }
 
-    public  boolean isAvailable(ArrayList<Booking> bookings, ArrayList<Bus> buses) {
-        int capacity=0;
-        int booked =0;
+    public  boolean isAvailable() throws SQLException, IOException {
 
-        for(Bus b: buses){
-            if(b.getBusNo() == busNo){
-                capacity = b.getCapacity();
-            }
-        }
+        BusDAO busdao = new BusDAO();
+        int capacity = busdao.getCapacity(busNo);
 
-        for(Booking b : bookings){
-            if(b.busNo == busNo && b.date.equals(date) ){
-                booked++;
-            }
-        }
+        BookingDAO bookingdao = new BookingDAO();
+        int booked = bookingdao.getBookedCapacity(busNo, date);
+
+
         return booked<capacity;
     }
 }
