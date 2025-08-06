@@ -20,7 +20,7 @@ public class Cancellation {
 
     }
 
-    public boolean isthere() throws SQLException, IOException {
+    public boolean isDetailsAvailable() throws SQLException, IOException {
         BookingDAO bookingdao = new BookingDAO();
         return bookingdao.hasBooked(passengerName, bookingID);
 

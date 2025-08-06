@@ -1,11 +1,9 @@
 package Bus_Reservation_System;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Date;
+import java.util.Queue;
 
 public class BookingDAO {
 
@@ -55,6 +53,28 @@ public class BookingDAO {
         return rst.next();
 
 
+
+    }
+
+    public boolean isthereBus(DeleteBus deleteBus) throws SQLException, IOException {
+
+        String query ="select * from bus where id ="+ deleteBus.busNo;
+        Connection con = DbConnection.getConnection();
+
+        Statement st = con.createStatement();
+        ResultSet rst = st.executeQuery(query);
+
+        return rst.next();
+
+    }
+
+    public void deleteBus(DeleteBus deletebus) throws SQLException, IOException {
+
+        String query = " delete from bus where id ="+deletebus.busNo;
+
+        Connection con = DbConnection.getConnection();
+        Statement st = con.createStatement();
+        st.executeUpdate(query);
 
     }
 }

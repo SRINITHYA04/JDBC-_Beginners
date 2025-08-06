@@ -44,7 +44,7 @@ public class BusDemo {
                     // Takes Cancellations
                     if(userOpt == 2){
                         Cancellation cancel = new Cancellation();
-                        if(cancel.isthere()){
+                        if(cancel.isDetailsAvailable()){
                             CancellationDAO canceldao = new CancellationDAO();
                             canceldao.deleteBooking(cancel);
                             System.out.println("Your booking cancelled successfully.");
@@ -61,7 +61,7 @@ public class BusDemo {
                 int userOpt =1;
                 while(userOpt != 3){
 
-                    System.out.println("Enter 1 for AddBus, 2 foe DeleteBus and 3 for exit ");
+                    System.out.println("Enter 1 for AddNewBus, 2 for DeleteBus and 3 for exit ");
                     userOpt = sc.nextInt();
 
                     if(userOpt == 1){
@@ -71,6 +71,20 @@ public class BusDemo {
                         busdao.addNewBus(bus);
 
                         System.out.println("New Bus Details Added Successfully.");
+                    }
+
+                    if(userOpt == 2){
+
+                        DeleteBus deletebus = new DeleteBus();
+                        BookingDAO bookingDAO = new BookingDAO();
+                        if(bookingDAO.isthereBus(deletebus)){
+                            bookingDAO.deleteBus(deletebus);
+                            System.out.println("Bus deleted successfully");
+                        }
+                        else{
+                            System.out.println("No such Bus number exists.");
+                        }
+
                     }
                 }
             }
