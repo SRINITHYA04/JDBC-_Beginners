@@ -19,8 +19,9 @@ public class BusDAO {
         ResultSet rt = st.executeQuery(query);
 
         while(rt.next()){
-            System.out.println("The Bus number is "+rt.getInt("id")+(rt.getBoolean("ac") ?" with":" without") + " AC and has a capacity of "+rt.getInt("capacity")+" seats.");
+            System.out.println("The Bus number is "+rt.getInt("id")+(rt.getBoolean("ac") ?" with   ":" without") + " AC and has a capacity of "+rt.getInt("capacity")+" seats. Driver Name: "+rt.getString("bus_driver"));
         }
+        System.out.println("--------------------------------------------------------------------------------------------------------");
         con.close();
     }
 

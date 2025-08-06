@@ -2,6 +2,7 @@ package Bus_Reservation_System;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -10,6 +11,9 @@ public class Booking {
     String passengerName;
     int busNo;
     Date date;
+    int bookingNumber ;
+    String from;
+    String to;
 
     Booking() throws ParseException {
         Scanner sc = new Scanner(System.in);
@@ -22,6 +26,13 @@ public class Booking {
 
         System.out.println("Enter the Date as (dd-mm-yyy): ");
         String dateInput = sc.next();
+
+        System.out.println("Enter the 'From' Location: ");
+        from = sc.next();
+
+        System.out.println("Enter the 'to' Location: ");
+        to = sc.next();
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         try{
             date = dateFormat.parse(dateInput);

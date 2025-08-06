@@ -26,7 +26,7 @@ public class BookingDAO {
     }
 
     public void addBooking(Booking booking) throws SQLException, IOException {
-        String query = "insert into booking values(?,?,?);";
+        String query = "insert into booking (passenger_Name, bus_no, travel_date, from_add, to_add) values(?,?,?,?,?);";
         java.sql.Date sqlDate = new java.sql.Date(booking.date.getTime());
 
         Connection con = DbConnection.getConnection();
@@ -35,6 +35,8 @@ public class BookingDAO {
         pst.setString(1,booking.passengerName);
         pst.setInt(2,booking.busNo);
         pst.setDate(3,sqlDate);
+        pst.setString(4, booking.from);
+        pst.setString(5, booking.to);
 
         pst.executeUpdate();
     }
