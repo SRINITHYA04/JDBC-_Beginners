@@ -7,9 +7,7 @@ import java.sql.SQLException;
 
 public class CancellationDAO {
 
-    public CancellationDAO() throws SQLException, IOException {
-        Connection con = DbConnection.getConnection();
-    }
+
 
     public void deleteBooking(Cancellation cancel) throws SQLException, IOException {
 

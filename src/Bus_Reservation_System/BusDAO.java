@@ -1,10 +1,7 @@
 package Bus_Reservation_System;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class BusDAO {
 
@@ -36,5 +33,20 @@ public class BusDAO {
 
 
         return rst.getInt(1);
+    }
+
+    public void addNewBus(Bus bus) throws SQLException, IOException {
+        String query ="insert into bus values(?,?,?,?);";
+
+        Connection con = DbConnection.getConnection();
+        PreparedStatement pst = con.prepareStatement(query);
+
+        pst.setInt(1,bus.getBusNo());
+        pst.setString(2,bus.getDriverName());
+        pst.setBoolean(3,bus.getAc());
+        pst.setInt(4,bus.getCapacity());
+
+        pst.executeUpdate();
+
     }
 }
