@@ -28,13 +28,6 @@ public class Bus {
     public void setCapacity(int new_Capacity){
         capacity = new_Capacity;
     }
-    public void setAc(boolean newAc){
-        ac = newAc;
-    }
 
-    // methode to get the bus details
-
-    public void displayBusInfo() {
-        System.out.println("The Bus number is: "+busNo+" "+(ac?"with ": "without " )+"AC"+ " and has a capacity of "+capacity+" seats.");
-    }
+    public void setAc(boolean newAc){ ac = newAc; }
 }
