@@ -1,4 +1,4 @@
-package Bus_Reservation_System;
+package Bus_Reservation_System.Model;
 
 import java.util.Scanner;
 

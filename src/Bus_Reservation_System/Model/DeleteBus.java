@@ -1,11 +1,11 @@
-package Bus_Reservation_System;
+package Bus_Reservation_System.Model;
 
 import java.util.Scanner;
 
 public class DeleteBus {
-    int busNo;
+    public int busNo;
 
-    DeleteBus(){
+    public DeleteBus(){
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter the Bus Number: ");

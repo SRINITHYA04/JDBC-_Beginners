@@ -1,4 +1,7 @@
-package Bus_Reservation_System;
+package Bus_Reservation_System.Model;
+
+import Bus_Reservation_System.DAO.BookingDAO;
+import Bus_Reservation_System.DAO.BusDAO;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -7,14 +10,14 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Booking {
-    String passengerName;
-    int busNo;
-    Date date;
+    public String passengerName;
+    public int busNo;
+    public Date date;
     int bookingNumber ;
-    String from;
-    String to;
+    public String from;
+    public String to;
 
-    Booking() throws ParseException {
+    public Booking() throws ParseException {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter the passenger name: ");

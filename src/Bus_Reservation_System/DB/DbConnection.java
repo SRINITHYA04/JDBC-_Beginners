@@ -1,4 +1,4 @@
-package Bus_Reservation_System;
+package Bus_Reservation_System.DB;
 
 import java.io.FileInputStream;
 import java.io.IOException;

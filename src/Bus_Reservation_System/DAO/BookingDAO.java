@@ -1,9 +1,12 @@
-package Bus_Reservation_System;
+package Bus_Reservation_System.DAO;
+
+import Bus_Reservation_System.DB.DbConnection;
+import Bus_Reservation_System.Model.DeleteBus;
+import Bus_Reservation_System.Model.Booking;
 
 import java.io.IOException;
 import java.sql.*;
 import java.util.Date;
-import java.util.Queue;
 
 public class BookingDAO {
 

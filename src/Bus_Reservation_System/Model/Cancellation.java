@@ -1,4 +1,6 @@
-package Bus_Reservation_System;
+package Bus_Reservation_System.Model;
+
+import Bus_Reservation_System.DAO.BookingDAO;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -6,10 +8,10 @@ import java.util.*;
 
 public class Cancellation {
 
-    String passengerName;
-    int bookingID;
+    public String passengerName;
+    public int bookingID;
 
-    Cancellation(){
+    public Cancellation(){
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter the Passenger name: ");
