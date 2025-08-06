@@ -40,4 +40,21 @@ public class BookingDAO {
 
         pst.executeUpdate();
     }
+
+    public boolean hasBooked(String passengerName, int bookingID) throws SQLException, IOException {
+
+        String query = " select * from booking where passenger_Name = ? and booking_number = ?;";
+
+        Connection con = DbConnection.getConnection();
+        PreparedStatement pst = con.prepareStatement(query);
+
+        pst.setString(1,passengerName);
+        pst.setInt(2,bookingID);
+
+        ResultSet rst = pst.executeQuery();
+        return rst.next();
+
+
+
+    }
 }
