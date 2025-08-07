@@ -1,5 +1,6 @@
 package Bus_Reservation_System.DAO;
 
+import Bus_Reservation_System.DB.UserLogin;
 import Bus_Reservation_System.Model.DeleteBus;
 import Bus_Reservation_System.Model.Booking;
 import Bus_Reservation_System.Model.Bus;
@@ -19,39 +20,45 @@ public class BusDemo {
             System.out.println("2. Admin");
 
             int role = sc.nextInt();
-            if(role == 1){
-                System.out.println("Bus Details");
-                BusDAO busdao = new BusDAO();
-                busdao.displayBusInfo();
+            if(role == 1) {
 
-                int userOpt = 1;
+                UserLogin userlogin = new UserLogin();
+                UserLoginDAO userlogindao = new UserLoginDAO();
 
-                while(userOpt != 3) {
-                    System.out.println("Enter 1 for Booking, 2 for cancellation and 3 for Exit.");
-                    userOpt = sc.nextInt();
-                    // takes New booking
-                    if(userOpt == 1){
-                        Booking booking = new Booking();
-                        if(booking.isAvailable()){
-                            BookingDAO bookingdao = new BookingDAO();
-                            bookingdao.addBooking(booking);
-                            System.out.println("Your Booking is successFull.");
-                        }
-                        else{
-                            System.out.println("Sorry bus is Full. Try another Bus or Date.");
-                        }
-                    }
+                if (userlogindao.validateUser(userlogin)) {
 
-                    // Takes Cancellations
-                    if(userOpt == 2){
-                        Cancellation cancel = new Cancellation();
-                        if(cancel.isDetailsAvailable()){
-                            CancellationDAO canceldao = new CancellationDAO();
-                            canceldao.deleteBooking(cancel);
-                            System.out.println("Your booking cancelled successfully.");
+                    System.out.println("Bus Details");
+                    BusDAO busdao = new BusDAO();
+                    busdao.displayBusInfo();
+
+                    int userOpt = 1;
+
+                    while (userOpt != 3) {
+                        System.out.println("Enter 1 for Booking, 2 for cancellation and 3 for Exit.");
+                        userOpt = sc.nextInt();
+                        // takes New booking
+                        if (userOpt == 1) {
+                            Booking booking = new Booking();
+                            if (booking.isAvailable()) {
+                                BookingDAO bookingdao = new BookingDAO();
+                                bookingdao.addBooking(booking);
+                                System.out.println("Your Booking is successFull.");
+                            } else {
+                                System.out.println("Sorry bus is Full. Try another Bus or Date.");
+                            }
                         }
-                        else {
-                            System.out.println("No such booking found.");
+
+
+                        // Takes Cancellations
+                        if (userOpt == 2) {
+                            Cancellation cancel = new Cancellation();
+                            if (cancel.isDetailsAvailable()) {
+                                CancellationDAO canceldao = new CancellationDAO();
+                                canceldao.deleteBooking(cancel);
+                                System.out.println("Your booking cancelled successfully.");
+                            } else {
+                                System.out.println("No such booking found.");
+                            }
                         }
                     }
                 }
@@ -89,9 +96,7 @@ public class BusDemo {
                     }
                 }
             }
-
-
-
+            sc.close();
         } catch (Exception e){
             System.out.println(e);
         }
